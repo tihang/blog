@@ -16,9 +16,18 @@ Route::get('/about', 'HelloController@about');
 Route::get('/service', 'ServiceController@index');
 Route::post('/service', 'ServiceController@store');
 
-// Route::view('/about', 'about'); 
+// Route::view('/about', 'about');
 // Route::view('/services', 'services');
 
-Route::get('/customers', 'CustomerController@index');
-Route::get('/customers/create', 'CustomerController@create');
-Route::post('/customers', 'CustomerController@store');
+// Route::get('/customers', 'CustomerController@index');
+// Route::get('/customers/create', 'CustomerController@create');
+// Route::post('/customers', 'CustomerController@store');
+// Route::get('/customers/{customer}', 'CustomerController@show');
+// Route::get('/customers/{customer}/edit', 'CustomerController@edit');
+// Route::patch('/customers/{customer}', 'CustomerController@update');
+// Route::delete('/customers/{customer}', 'CustomerController@destroy');
+
+//Using resource controller
+Route::resource('/customers', 'CustomerController');
+
+Route::resource('/products', 'ProductController');

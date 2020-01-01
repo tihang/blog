@@ -14,6 +14,11 @@ class ServiceController extends Controller
         return view('service.index', compact('service'));
     }
 
+    // public function create()
+    // {
+    //     return view('')
+    // }
+
     public function store()
     {   
         $data = request()->validate([
@@ -21,6 +26,6 @@ class ServiceController extends Controller
         ]);
     
         Service::create($data);
-        return redirect()->back();
+        return redirect('/customers');
     }
 }

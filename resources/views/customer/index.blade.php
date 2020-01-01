@@ -9,6 +9,7 @@
     @forelse ($customers as $customer)
         <ul>
         <li>{{ $customer->name }} || {{ $customer->email }}</li>
+        <a href="/customers/{{ $customer->id }}">Get Details</a>
         </ul>
     @empty
         <p>No customers to show</p>

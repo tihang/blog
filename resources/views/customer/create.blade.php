@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title', 'Add customer')
-    
+
 @section('content')
 
 <form action="/customers" method="POST">
