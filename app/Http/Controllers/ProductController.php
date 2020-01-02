@@ -26,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $product = new Product();
+        return view('product.create', compact('product'));
     }
 
     /**
@@ -37,7 +38,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::create($this->validateData());
+
+        return redirect('/products/'. $product->id);
     }
 
     /**
@@ -48,7 +51,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -59,7 +62,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('product.edit', compact('product'));
     }
 
     /**
@@ -71,7 +74,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($this->validateData());
+        return redirect('/products/'. $product->id);
     }
 
     /**
@@ -82,6 +86,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+       $product->delete($product);
+       return redirect('/products');
+    }
+
+    protected function validateData(){
+        return request()->validate([
+            'name' => 'min: 3 | required',
+            'description' => 'required'
+        ]);
     }
 }

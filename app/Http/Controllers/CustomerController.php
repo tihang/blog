@@ -4,24 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Customer;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::orderBy('id', 'ASC')->get();
+        $customers = Customer::where('active', request()->query('active', 1))->orderBy('id')->get();
         return view('customer.index', compact('customers'));
     }
-    
+
     public function create()
     {
-        return view('customer.create');
+        $customer = new Customer();
+        return view('customer.create', compact('customer'));
     }
 
     public function store()
     {
         $newCustomer = Customer::create($this->validateCustomer());
-        return redirect('/customers/'. $newCustomer-> id);
+
+        Mail::to($newCustomer->email)->send(new WelcomeMail($newCustomer));
+
+        return redirect('/customers/'. $newCustomer->id);
     }
 
     public function show(Customer $customer)
